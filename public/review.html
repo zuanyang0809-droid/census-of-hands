@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Census of Hands — Review samples</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        padding: 24px 32px 64px;
+      }
+      header {
+        display: flex;
+        gap: 16px;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0;
+      }
+      h2 {
+        font-size: 16px;
+        margin: 28px 0 10px;
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+      }
+      h2 .glyph {
+        font-size: 26px;
+        min-width: 28px;
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tile {
+        position: relative;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+      }
+      .tile canvas {
+        width: 76px;
+        height: 76px;
+      }
+      .tile button {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        padding: 0 6px;
+        font-size: 13px;
+        line-height: 18px;
+        border-radius: 6px;
+        display: none;
+      }
+      .tile:hover button {
+        display: block;
+      }
+      .tile:hover {
+        border-color: var(--muted);
+      }
+      .empty {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Handwriting samples</h1>
+      <span id="summary" class="muted">Loading…</span>
+      <button id="reload" type="button">Reload</button>
+    </header>
+    <p class="muted">Each tile is scaled to fit its own box, the way the model will see it. Delete anything that is not a fair example.</p>
+    <main id="groups"></main>
+    <script type="module" src="review.js"></script>
+  </body>
+</html>

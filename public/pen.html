@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Census of Hands — Pen</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      #pad {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--paper);
+      }
+      #bar {
+        position: absolute;
+        top: max(12px, env(safe-area-inset-top));
+        right: 16px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      #status-text {
+        font-size: 13px;
+      }
+      #play {
+        min-width: 92px;
+      }
+      #play.playing {
+        background: #e0583a;
+        border-color: #e0583a;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body class="surface">
+    <canvas id="pad"></canvas>
+    <div id="bar">
+      <span id="status-text" class="muted">Connecting…</span>
+      <span id="status" class="dot"></span>
+      <button id="play" type="button" hidden>▶ Play</button>
+      <button id="clear" type="button">Clear</button>
+    </div>
+    <script type="module" src="pen.js"></script>
+  </body>
+</html>

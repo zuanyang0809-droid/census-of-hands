@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Census of Hands — Display</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      #view {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      #score {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        bottom: 44px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px 32px;
+        font: 600 22px/1.3 ui-monospace, Menlo, monospace;
+      }
+      #score .row {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #score .row b {
+        color: var(--muted);
+        font-weight: 400;
+        font-size: 14px;
+        margin-right: 10px;
+      }
+      #score .unsure {
+        color: var(--warn);
+      }
+      #controls {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 13px;
+      }
+      #play {
+        min-width: 92px;
+      }
+      #play.playing {
+        background: #e0583a;
+        border-color: #e0583a;
+        color: #fff;
+      }
+      #tempo-text {
+        min-width: 64px;
+      }
+      #sound.off {
+        background: var(--ink);
+        color: #fff;
+        border-color: var(--ink);
+      }
+      #now {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      #bar {
+        position: absolute;
+        left: 20px;
+        bottom: 12px;
+        font-size: 13px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body class="surface">
+    <canvas id="view"></canvas>
+    <div id="score"></div>
+    <div id="controls">
+      <input id="tempo" type="range" min="50" max="200" step="5" value="100" aria-label="Tempo" />
+      <span id="tempo-text" class="muted">100 BPM</span>
+      <button id="play" type="button" title="Space">▶ Play</button>
+      <button id="sound" class="off" type="button">Turn on sound</button>
+    </div>
+    <div id="bar">
+      <span id="status" class="dot"></span>
+      <span id="status-text" class="muted">Connecting…</span>
+      <span id="model-text" class="muted"></span>
+      <span id="now"></span>
+    </div>
+    <script src="vendor/tf.min.js"></script>
+    <script type="module" src="display.js"></script>
+  </body>
+</html>

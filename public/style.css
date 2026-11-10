@@ -1,0 +1,80 @@
+:root {
+  --bg: #f4f3ef;
+  --paper: #ffffff;
+  --ink: #1c1c1e;
+  --muted: #8a8a8e;
+  --line: #dddad3;
+  --ok: #2f9e5b;
+  --warn: #d99a1e;
+  --bad: #d64545;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+/* Pages you write on: no scrolling, selecting or callouts. */
+body.surface {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+canvas {
+  display: block;
+  touch-action: none;
+}
+
+button {
+  font: inherit;
+  font-size: 15px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  touch-action: manipulation;
+  cursor: pointer;
+}
+
+button:active {
+  background: var(--line);
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bad);
+  vertical-align: middle;
+}
+
+.dot.waiting {
+  background: var(--warn);
+}
+
+.dot.live {
+  background: var(--ok);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+code {
+  font-family: ui-monospace, Menlo, monospace;
+  font-size: 0.95em;
+}

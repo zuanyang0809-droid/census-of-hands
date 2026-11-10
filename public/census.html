@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Census of Hands</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      :root {
+        --paper: #f2efe6;
+        --ink: #1d1d1b;
+        --red: #a8322a;
+        --muted: #8b877d;
+      }
+      body {
+        background: var(--paper);
+      }
+      #view {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      header {
+        position: absolute;
+        top: 26px;
+        left: 36px;
+        right: 36px;
+        pointer-events: none;
+      }
+      h1 {
+        margin: 0;
+        font: 400 26px/1.1 Georgia, 'Times New Roman', serif;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      header p {
+        margin: 8px 0 0;
+        max-width: 620px;
+        font: 12px/1.5 ui-monospace, Menlo, monospace;
+        color: var(--muted);
+      }
+      #bar {
+        position: absolute;
+        left: 36px;
+        bottom: 14px;
+        font: 11px ui-monospace, Menlo, monospace;
+        color: var(--muted);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body class="surface">
+    <canvas id="view"></canvas>
+    <header>
+      <h1>Census of Hands</h1>
+      <p>
+        Every machine that reads handwritten digits learned from MNIST: 60,000 digits written around 1990 by 539 people,
+        adult employees and American high-school students. Write a number, and meet the people who write it like you.
+      </p>
+    </header>
+    <div id="bar">
+      <span id="status" class="dot"></span>
+      <span id="status-text">Connecting…</span>
+      <span id="archive-text"></span>
+    </div>
+    <script src="vendor/tf.min.js"></script>
+    <script type="module" src="census.js"></script>
+  </body>
+</html>

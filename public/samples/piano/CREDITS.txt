@@ -1,0 +1,7 @@
+Salamander Grand Piano V3
+by Alexander Holm — https://archive.org/details/SalamanderGrandPianoV3
+Licence: Creative Commons Attribution 3.0 (CC-BY 3.0)
+
+These 13 MP3 files (C3–C6) are the compressed set published by Tone.js:
+https://tonejs.github.io/audio/salamander/
+Downloaded 2026-11-11 for the music version of Census of Hands, then called Digit Melody (Drawing++).

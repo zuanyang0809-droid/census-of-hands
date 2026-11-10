@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Census of Hands — Train</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        padding: 24px 32px 64px;
+      }
+      h1 {
+        font-size: 22px;
+        margin: 0 0 4px;
+      }
+      h2 {
+        font-size: 15px;
+        margin: 24px 0 8px;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 340px;
+        gap: 40px;
+        align-items: start;
+      }
+      @media (max-width: 900px) {
+        .cols {
+          grid-template-columns: 1fr;
+        }
+      }
+      table {
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      td,
+      th {
+        border: 1px solid var(--line);
+        padding: 4px 7px;
+        text-align: center;
+        min-width: 26px;
+      }
+      th {
+        background: var(--paper);
+        font-weight: 600;
+      }
+      td.low {
+        color: var(--bad);
+        font-weight: 600;
+      }
+      td.hit {
+        background: #d6efdf;
+      }
+      td.miss {
+        background: #f7d9d9;
+      }
+      #log {
+        font: 12px/1.5 ui-monospace, Menlo, monospace;
+        white-space: pre-wrap;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 10px 12px;
+        min-height: 60px;
+        max-height: 220px;
+        overflow: auto;
+      }
+      .strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .strip figure {
+        margin: 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .strip canvas {
+        display: block;
+        border-radius: 4px;
+      }
+      #pad-wrap {
+        width: 300px;
+        height: 300px;
+        background: var(--paper);
+        border: 2px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      #pad {
+        width: 100%;
+        height: 100%;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-top: 10px;
+      }
+      #bars {
+        display: grid;
+        grid-template-columns: 28px 1fr 44px;
+        gap: 3px 8px;
+        align-items: center;
+        font-size: 13px;
+        margin-top: 12px;
+      }
+      #bars .bar {
+        height: 10px;
+        background: var(--line);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      #bars .bar i {
+        display: block;
+        height: 100%;
+        background: var(--ink);
+      }
+      #bars .top {
+        font-weight: 700;
+      }
+      #guess {
+        font-size: 40px;
+        font-weight: 700;
+        min-width: 40px;
+      }
+      .big {
+        font-size: 28px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Train the recogniser</h1>
+    <p class="muted">MNIST digits 0–9 plus your own samples, augmented; your -, / and scribbles teach “not a digit”. Runs in this browser. Then every MNIST digit is fingerprinted so the live page can find who writes like you. All saved to the Mac.</p>
+    <div class="cols">
+      <section>
+        <h2>Your samples</h2>
+        <div id="counts">Loading…</div>
+        <p id="data-note" class="muted"></p>
+
+        <div class="row">
+          <button id="train" type="button">Train model</button>
+          <span id="model-status" class="muted"></span>
+        </div>
+        <h2>Log</h2>
+        <div id="log"></div>
+
+        <div id="results" hidden>
+          <h2>Results</h2>
+          <p>
+            MNIST test images: <span id="mnist-acc" class="big"></span>
+            &nbsp;&nbsp; Your held-out samples: <span id="own-acc" class="big"></span>
+          </p>
+          <p class="muted">Rows are what you wrote, columns what the model said. Green = right, red = wrong.</p>
+          <div id="confusion"></div>
+          <h2>Your held-out samples it got wrong</h2>
+          <div id="misses" class="strip"></div>
+        </div>
+
+        <h2>What the model trains on</h2>
+        <p class="muted">Random augmented examples of your samples, as 28×28 images.</p>
+        <div id="examples" class="strip"><span class="muted">Appears after training starts.</span></div>
+      </section>
+
+      <aside>
+        <h2>Try it</h2>
+        <p class="muted">Draw with the trackpad or mouse.</p>
+        <div id="pad-wrap"><canvas id="pad"></canvas></div>
+        <div class="row">
+          <button id="clear" type="button">Clear</button>
+          <canvas id="seen" width="84" height="84" title="What the model sees"></canvas>
+          <span id="guess"></span>
+        </div>
+        <div id="bars"></div>
+        <h2>Strangers who write it like you</h2>
+        <div id="strangers" class="strip"></div>
+      </aside>
+    </div>
+    <script src="vendor/tf.min.js"></script>
+    <script type="module" src="train.js"></script>
+  </body>
+</html>

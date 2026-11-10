@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+
+# Raw downloads, rebuilt into data/qmnist/ by tools/convert_qmnist.py
+data/qmnist-raw/
+# The TensorFlow.js MNIST sprite used before the switch to QMNIST
+data/mnist/

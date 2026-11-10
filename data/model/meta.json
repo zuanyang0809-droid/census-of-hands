@@ -1,0 +1,37 @@
+{
+  "mnistAccuracy": 0.9916666666666667,
+  "ownAccuracy": 1,
+  "ownTested": 18,
+  "samples": {
+    "0": 17,
+    "1": 14,
+    "2": 18,
+    "3": 16,
+    "4": 16,
+    "5": 15,
+    "6": 19,
+    "7": 16,
+    "-": 17,
+    "/": 16,
+    "other": 16
+  },
+  "trainingImages": 58969,
+  "writers": 540,
+  "people": 539,
+  "sameHandStyle": 0.097,
+  "sameHandDigitLayer": 0.051,
+  "classes": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "other"
+  ],
+  "savedAt": "2026-11-10T20:31:54.267Z"
+}

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Census of Hands</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        padding: 32px;
+        max-width: 640px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+      li {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Census of Hands</h1>
+    <p class="muted">Write a digit, and meet the people in the MNIST archive who write it like you.</p>
+    <h2>On the iPad</h2>
+    <ul>
+      <li><a href="pen.html">Pen</a> — the writing surface</li>
+      <li><a href="collect.html">Collect</a> — write training samples</li>
+    </ul>
+    <h2>On the Mac</h2>
+    <ul>
+      <li><a href="hands.html"><b>Census of Hands (mouse)</b></a> — draw on the Mac, no iPad: the archive's digits gather around yours, by handwriting</li>
+      <li><a href="census.html"><b>Census of Hands</b></a> — the piece: meet the 12 people who write like you</li>
+      <li><a href="display.html">Display</a> — the earlier music version</li>
+      <li><a href="review.html">Review</a> — check and clean samples</li>
+      <li><a href="train.html">Train</a> — train and try the recogniser</li>
+    </ul>
+    <p id="lan" class="muted"></p>
+    <p class="muted">Piano: Salamander Grand Piano by Alexander Holm (CC-BY 3.0). Digits and their writers from QMNIST (Yadav &amp; Bottou, 2019; BSD licence), the reconstructed MNIST training set.</p>
+    <script type="module">
+      const { addresses, port } = await (await fetch('/api/info')).json();
+      if (addresses.length) {
+        document.getElementById('lan').innerHTML = `iPad address (same Wi-Fi): ${addresses
+          .map((a) => `<code>http://${a}:${port}</code>`)
+          .join(' or ')}`;
+      }
+    </script>
+  </body>
+</html>
