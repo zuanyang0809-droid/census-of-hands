@@ -91,13 +91,13 @@ export function fingerprints(fpModel, flat, count) {
 
 // Returns { model, meta } or null when nothing has been trained yet.
 export async function loadModel() {
-  const res = await fetch('/model/meta.json');
+  const res = await fetch('model/meta.json');
   if (!res.ok) return null;
   const meta = await res.json();
   if (JSON.stringify(meta.classes) !== JSON.stringify(CLASSES) || !meta.writers) {
     throw new Error('The saved model is from an older version — train it again at /train.html.');
   }
-  const model = await tf.loadLayersModel(`/model/model.json?t=${Date.now()}`);
+  const model = await tf.loadLayersModel(`model/model.json?t=${Date.now()}`);
   return { model, meta };
 }
 

@@ -1,0 +1,45 @@
+# Publishes the mouse version (hands.html) to GitHub Pages on every push to
+# main. Only that page can run without the server: the iPad, collecting and
+# training pages need server.js, so they are not published.
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gather the page, its code, the model and the archive
+        run: |
+          mkdir -p site/vendor site/model site/qmnist
+          cp public/hands.html site/index.html
+          cp public/hands.html public/hands.js public/archive.js public/model.js public/preprocess.js site/
+          cp public/vendor/tf.min.js site/vendor/
+          cp data/model/model.json data/model/model.weights.bin data/model/meta.json data/model/mnist_fingerprints.bin site/model/
+          cp data/qmnist/qmnist_images.png data/qmnist/qmnist_labels.bin data/qmnist/qmnist_writers.json site/qmnist/
+          touch site/.nojekyll
+          find site -type f | sort
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - id: deployment
+        uses: actions/deploy-pages@v4
