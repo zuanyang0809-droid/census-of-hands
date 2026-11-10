@@ -18,8 +18,12 @@ let current = null;
 //   writers: Uint16Array(rows) (index into people), people: [{ id, series, count }], rows }
 export async function loadMnist(rows = MNIST_TOTAL, onProgress = () => {}) {
   const img = new Image();
-  img.src = `${DATA_BASE}qmnist/qmnist_images.png`;
-  await img.decode();
+  // onload, not img.decode(): decode() never settles in a hidden tab
+  await new Promise((resolve, reject) => {
+    img.onload = resolve;
+    img.onerror = () => reject(new Error('Could not load the archive images.'));
+    img.src = `${DATA_BASE}qmnist/qmnist_images.png`;
+  });
   const canvas = document.createElement('canvas');
   canvas.width = PIX;
   canvas.height = CHUNK;
