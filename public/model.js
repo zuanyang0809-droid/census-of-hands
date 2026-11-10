@@ -13,6 +13,12 @@
 
 import { SIZE } from './preprocess.js';
 
+// Where the archive and model files are, relative to the page. The local
+// server serves them at qmnist/ and model/; a page published straight from
+// the repository (GitHub Pages) sets window.CENSUS_DATA_BASE = 'data/' to
+// read them from data/qmnist/ and data/model/.
+export const DATA_BASE = globalThis.CENSUS_DATA_BASE ?? '';
+
 export const CLASSES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'other'];
 export const EMBED_DIM = 64;
 
@@ -91,13 +97,13 @@ export function fingerprints(fpModel, flat, count) {
 
 // Returns { model, meta } or null when nothing has been trained yet.
 export async function loadModel() {
-  const res = await fetch('model/meta.json');
+  const res = await fetch(`${DATA_BASE}model/meta.json`);
   if (!res.ok) return null;
   const meta = await res.json();
   if (JSON.stringify(meta.classes) !== JSON.stringify(CLASSES) || !meta.writers) {
     throw new Error('The saved model is from an older version — train it again at /train.html.');
   }
-  const model = await tf.loadLayersModel(`model/model.json?t=${Date.now()}`);
+  const model = await tf.loadLayersModel(`${DATA_BASE}model/model.json?t=${Date.now()}`);
   return { model, meta };
 }
 

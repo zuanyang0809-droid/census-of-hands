@@ -16,6 +16,8 @@ itself again, stroke by stroke, the way you wrote it.
 Made for the recognition assignment in Drawing++ (Zach Lieberman, Fall 2026):
 *create a tool that detects and responds to specific drawings.*
 
+**Try it:** https://zuanyang0809-droid.github.io/census-of-hands/ (mouse and trackpad)
+
 ## Run it
 
 Needs [Node.js](https://nodejs.org) 18 or newer.

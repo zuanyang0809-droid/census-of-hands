@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Census of Hands</title>
+    <style>
+      :root {
+        --bg: #000;
+        --fg: #fff;
+        --dim: rgba(255, 255, 255, 0.45);
+        --font: Futura, 'Futura PT', 'Century Gothic', sans-serif;
+        --mono: var(--font);
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: var(--bg);
+        color: var(--fg);
+        overflow: hidden;
+      }
+      #view {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        cursor: crosshair;
+        touch-action: none;
+      }
+      header,
+      footer {
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        font: 12px/1.5 var(--font);
+        pointer-events: none;
+      }
+      header {
+        top: 22px;
+      }
+      /* a black backing so the text stays readable over the strangers */
+      header h1,
+      header p,
+      footer span {
+        width: fit-content;
+        background: var(--bg);
+        box-shadow: 0 0 0 6px var(--bg);
+      }
+      footer span:empty {
+        visibility: hidden;
+      }
+      header h1 {
+        margin: 0;
+        font: 500 12px/1.5 var(--font);
+        letter-spacing: 0.2em;
+      }
+      header p {
+        margin: 4px 0 0;
+        max-width: 560px;
+        color: var(--dim);
+      }
+      footer {
+        bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--dim);
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="view"></canvas>
+    <header>
+      <h1>CENSUS OF HANDS</h1>
+      <p>
+        MNIST: 60,000 digits written around 1990 by 539 people, adult employees and high-school students, about 116
+        each. Draw a number anywhere, and the digits written most like yours gather around it. Click one to see
+        everything else its writer wrote.
+      </p>
+    </header>
+    <!-- only shown while the archive is opening, or if it fails to -->
+    <footer>
+      <span id="archive">opening the archive…</span>
+      <span id="reading" hidden></span>
+    </footer>
+    <!-- The repository's front page on GitHub Pages: the same page as
+         public/hands.html, reading its code from public/ and the model and
+         archive from data/. Keep the two in step when hands.html changes. -->
+    <script>
+      window.CENSUS_DATA_BASE = 'data/';
+    </script>
+    <script src="public/vendor/tf.min.js"></script>
+    <script type="module" src="public/hands.js"></script>
+  </body>
+</html>

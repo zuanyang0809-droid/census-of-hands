@@ -5,7 +5,7 @@
 // index of handwriting fingerprints, to find the people who write like you.
 
 import { SIZE } from './preprocess.js';
-import { EMBED_DIM } from './model.js';
+import { DATA_BASE, EMBED_DIM } from './model.js';
 
 export const PIX = SIZE * SIZE;
 export const MNIST_TOTAL = 60000; // digits in QMNIST's training set
@@ -18,7 +18,7 @@ let current = null;
 //   writers: Uint16Array(rows) (index into people), people: [{ id, series, count }], rows }
 export async function loadMnist(rows = MNIST_TOTAL, onProgress = () => {}) {
   const img = new Image();
-  img.src = 'qmnist/qmnist_images.png';
+  img.src = `${DATA_BASE}qmnist/qmnist_images.png`;
   await img.decode();
   const canvas = document.createElement('canvas');
   canvas.width = PIX;
@@ -39,10 +39,10 @@ export async function loadMnist(rows = MNIST_TOTAL, onProgress = () => {}) {
       ch.port2.postMessage(0);
     });
   }
-  const labels = await (await fetch('qmnist/qmnist_labels.bin')).arrayBuffer();
+  const labels = await (await fetch(`${DATA_BASE}qmnist/qmnist_labels.bin`)).arrayBuffer();
   const digits = new Uint8Array(labels, 0, rows).slice();
   const writers = new Uint16Array(labels.slice(MNIST_TOTAL, MNIST_TOTAL + rows * 2));
-  const people = await (await fetch('qmnist/qmnist_writers.json')).json();
+  const people = await (await fetch(`${DATA_BASE}qmnist/qmnist_writers.json`)).json();
   current = { pixels, digits, writers, people, rows };
   return current;
 }
@@ -69,7 +69,7 @@ export function quantize(floats) {
 
 // Int8Array(rows×EMBED_DIM), or null if the archive has not been indexed yet.
 export async function loadIndex() {
-  const res = await fetch(`model/mnist_fingerprints.bin?t=${Date.now()}`);
+  const res = await fetch(`${DATA_BASE}model/mnist_fingerprints.bin?t=${Date.now()}`);
   if (!res.ok) return null;
   return new Int8Array(await res.arrayBuffer());
 }
