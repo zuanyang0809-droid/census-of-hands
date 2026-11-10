@@ -5,3 +5,6 @@ node_modules/
 data/qmnist-raw/
 # The TensorFlow.js MNIST sprite used before the switch to QMNIST
 data/mnist/
+
+# A note for uploading by hand, not part of the project
+UPLOAD.md
